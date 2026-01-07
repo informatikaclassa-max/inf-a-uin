@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Informatika Class A | UIN SMH Banten</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* Sophisticated Background */
+    .bg-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(ellipse at top, #0f0f23 0%, #000000 50%);
+    }
+    
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+    }
+    
+    @keyframes gridMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(50px); }
+    }
+    
+    .bg-gradient-orbs {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    .orb1 {
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      top: -10%;
+      right: -10%;
+      animation-delay: 0s;
+    }
+    
+    .orb2 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      bottom: -10%;
+      left: -10%;
+      animation-delay: 5s;
+    }
+    
+    .orb3 {
+      width: 350px;
+      height: 350px;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      top: 50%;
+      left: 50%;
+      animation-delay: 10s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -50px) scale(1.1); }
+      66% { transform: translate(-50px, 50px) scale(0.9); }
+    }
+    
+    /* Navigation Bar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 50px 50px;
+      position: relative;
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #a5b4fc;
+      margin-bottom: 30px;
+      animation: fadeInDown 1s ease;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero h1 {
+      font-size: 6rem;
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 1s ease 0.2s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero-description {
+      max-width: 800px;
+      margin: 0 auto 50px;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.7);
+      animation: fadeInUp 1s ease 0.4s both;
+    }
+    
+    .hero-description strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      margin-top: 60px;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Section Styling */
+    section {
+      padding: 120px 50px;
+      position: relative;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    
+    .section-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #a5b4fc;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    
+    .section-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .section-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    /* Content Cards */
+    .content-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      gap: 40px;
+    }
+    
+    .content-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      padding: 60px;
+      backdrop-filter: blur(20px);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 40px 80px rgba(99, 102, 241, 0.2);
+    }
+    
+    .content-card:hover::before {
+      opacity: 1;
+    }
+    
+    .image-container {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .image-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+      animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+    
+    .image-placeholder {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      z-index: 1;
+      position: relative;
+    }
+    
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .card-text {
+      font-size: 1.15rem;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+    }
+    
+    .card-text strong {
+      color: #ffffff;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-text em {
+      color: #fbbf24;
+      font-style: italic;
+      font-weight: 600;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 80px 50px 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(20px);
+      position: relative;
+    }
+    
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+    }
+    
+    .social-section {
+      margin: 40px 0;
+    }
+    
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #f43f5e, #ec4899);
+      border-radius: 50px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(244, 63, 94, 0.3);
+    }
+    
+    .instagram-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(244, 63, 94, 0.5);
+    }
+    
+    .instagram-icon {
+      width: 24px;
+      height: 24px;
+      background: #ffffff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+    
+    .footer-bottom {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.9rem;
+    }
+    
+    /* Scroll Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      nav {
+        padding: 20px 30px;
+      }
+      
+      .nav-links {
+        gap: 25px;
+      }
+      
+      .hero h1 {
+        font-size: 4rem;
+      }
+      
+      section {
+        padding: 80px 30px;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        padding: 15px 20px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero {
+        padding: 100px 20px 50px;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+        letter-spacing: -2px;
+      }
+      
+      .hero-description {
+        font-size: 1rem;
+      }
+      
+      .hero-stats {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      section {
+        padding: 60px 20px;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .content-card {
+        padding: 40px 25px;
+      }
+      
+      .image-container {
+        height: 300px;
+      }
+      
+      .card-text {
+        font-size: 1rem;
+      }
+      
+      footer {
+        padding: 60px 20px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-wrapper">
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+  </div>
+  
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">INFORMATIKA A</div>
+    <ul class="nav-links">
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#gallery">Galeri</a></li>
+      <li><a href="#ambis">A-MBIS</a></li>
+      <li><a href="#contact">Kontak</a></li>
+    </ul>
+  </nav>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">UIN Sultan Maulana Hasanuddin Banten</div>
+      <h1>INFORMATIKA<br/>CLASS A</h1>
+      <p class="hero-description">
+        Informatika Class A adalah salah satu kelas Informatika <strong>Universitas Islam Negeri Sultan Maulana Hasanuddin Banten</strong>, Fakultas Sains dan Teknologi. Dipimpin oleh ketua kelas <strong>Bahrurozi</strong>, kami adalah komunitas pembelajar yang berdedikasi tinggi dalam menguasai teknologi informasi.
+      </p>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">32</span>
+          <span class="stat-label">Mahasiswa Aktif</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">2025</span>
+          <span class="stat-label">Angkatan</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">01</span>
+          <span class="stat-label">Kelas Terbaik</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section id="about">
+    <div class="section-header fade-in">
+      <div class="section-tag">Tentang Kami</div>
+      <h2 class="section-title">Kelas Paling Ambis</h2>
+      <p class="section-subtitle">
+        Dedikasi tinggi dalam pembelajaran dan kolaborasi yang solid menjadi ciri khas kami
+      </p>
+    </div>
+    
+    <div class="content-grid">
+      <div class="content-card fade-in">
+        <div class="image-container">
+          <img src="https://lh3.googleusercontent.com/d/1orRJ-FsT0cmc_k2z_OmAIunZXGD9YNtb" alt="foto bersama satu kelaas">
+        </div>
+        <div class="card-content">
+          <p class="card-text">
+            Informatika Class A merupakan mahasiswa aktif <strong>UIN Sultan Maulana Hasanuddin Banten Angkatan 2025</strong>. Konon katanya, kelas ini disebut dengan panggilan <strong>"Kelas Paling Ambis"</strong> di antara kelas lain, karena mahasiswanya terlalu aktif dengan tugas yang diberikan oleh dosen pengampu. Sampai liburan sehabis UAS, mereka menamakan dengan <strong>A-MBIS CAMP</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- AMBIS Camp Section -->
+  <section id="ambis">
+    <div class="section-header fade-in">
+      <div class="section-tag">Program Unggulan</div>
+      <h2 class="section-title">A-MBIS CAMP</h2>
+      <p class="section-subtitle">
+        Program liburan yang mempererat solidaritas dan kekeluargaan mahasiswa
+      </p>
+    </div>
+    
+    <div class="content-grid">
+      <div class="content-card fade-in">
+        <div class="image-container">
+          <img src="https://lh3.googleusercontent.com/d/1h2gICKRcBuVEZB0Lkz_CSqiPiRLZPsWn" alt="kegiatan ambis camp">
+        </div>
+        <div class="card-content">
+          <p class="card-text">
+            Liburan mereka yang dinamakan <strong>A-MBIS CAMP</strong> benar-benar dilaksanakan dan bertema <em>"Menjunjung Solidaritas dan Kekeluargaan"</em>. Itu adalah sebagai upaya mempererat silaturahmi sesama teman sekelas dan membangun ikatan yang lebih kuat untuk menghadapi perjalanan akademik bersama.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <div class="section-header fade-in">
+      <div class="section-tag">Galeri</div>
+      <h2 class="section-title">Momen Kebersamaan</h2>
+      <p class="section-subtitle">
+        Dokumentasi perjalanan kami dalam mengejar ilmu dan membangun persahabatan
+      </p>
+    </div>
+    
+    <div class="content-grid">
+      <div class="content-card fade-in">
+        <div class="image-container">
+          <img src="https://lh3.googleusercontent.com/d/1EORQ5ueBOPEL7SXjnv-csCF-XXIsXgHA" alt="momen kebersamaan">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-logo">INFORMATIKA CLASS A</div>
+      
+      <div class="social-section">
+        <a href="https://instagram.com/informatika_class_a" target="_blank" class="instagram-link">
+          <div class="instagram-icon">📷</div>
+          <span>@informatika_class_a</span>
+        </a>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 Informatika Class A - UIN Sultan Maulana Hasanuddin Banten</p>
+        <p style="margin-top: 10px; opacity: 0.6;">Fakultas Sains dan Teknologi</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    
+    // Parallax effect
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const orbs = document.querySelectorAll('.orb');
+          
+          orbs.forEach((orb, index) => {
+            const speed = 0.5 + (index * 0.1);
+            orb.style.transform = `translateY(${scrolled * speed}px)`;
+          });
+          
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    });
+    
+    // Active nav link
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    window.addEventListener('scroll', () => {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.style.color = 'rgba(255, 255, 255, 0.7)';
+        if (link.getAttribute('href').slice(1) === current) {
+          link.style.color = '#ffffff';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
